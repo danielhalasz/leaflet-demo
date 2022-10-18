@@ -15,14 +15,15 @@ export const MapBar = ({ searchResults, selectedResult }) => {
   // const mapLayerProvider0 =
   //   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
   const mapLayerProvider =
-    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+    'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
 
   return (
     <div>
       <MapContainer center={[50.0, 1.0]} zoom={6} scrollWheelZoom={true}>
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          attribution="Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ"
           url={mapLayerProvider}
+          maxZoom={16}
         />
         {searchResults.length > 0 ? (
           <SetViewOnResult coords={[selectedResult.lat, selectedResult.lon]} />
