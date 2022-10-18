@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { SearchBar } from './components/SearchBar';
+import { MapBar } from './components/MapBar';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -18,12 +19,6 @@ function App() {
       });
   }, [searchQuery]);
 
-  const handleSearchClick = (e) => {
-    e.preventDefault();
-    console.log(e.target.searchField.value);
-    setSearchQuery(e.target.searchField.value);
-  };
-
   const handleResultClick = (e) => {
     const selection = searchResults.find(
       (result) => result.display_name === e.target.innerText
@@ -31,54 +26,29 @@ function App() {
     setSelectedResult(selection);
   };
 
-  const SetViewOnResult = ({ coords }) => {
-    const map = useMap();
-    map.setView(coords, map.getZoom());
-
-    return null;
-  };
-
-  SetViewOnResult.defaultProps = {
-    coords: [50.0, 1.0],
-  };
-
   return (
     <div>
-      <form onSubmit={handleSearchClick}>
-        <input type="text" name="searchField" />
-        <button type="submit">Search</button>
-      </form>
+      <SearchBar setSearchQuery={setSearchQuery} />
 
       <ul>
         {searchResults.map((result) => (
-          <div>
-            <li key={result.place_id} onClick={handleResultClick}>
+          <div key={result.place_id}>
+            <li
+              onClick={handleResultClick}
+              style={{
+                color: 'blue',
+                cursor: 'pointer',
+                fontSize: '0.8rem',
+                paddingTop: '0.5rem',
+              }}
+            >
               {result.display_name}
             </li>
           </div>
         ))}
       </ul>
 
-      <MapContainer center={[50.0, 1.0]} zoom={6} scrollWheelZoom={true}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {searchResults.length > 0 ? (
-          <SetViewOnResult coords={[selectedResult.lat, selectedResult.lon]} />
-        ) : (
-          <SetViewOnResult />
-        )}
-        {searchResults.map((result) => {
-          return (
-            <>
-              <Marker key={result.place_id} position={[result.lat, result.lon]}>
-                <Popup>{result.display_name}</Popup>
-              </Marker>
-            </>
-          );
-        })}
-      </MapContainer>
+      <MapBar searchResults={searchResults} selectedResult={selectedResult} />
     </div>
   );
 }

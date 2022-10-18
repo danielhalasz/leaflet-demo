@@ -1,14 +1,14 @@
-export const SearchBar = ({ search, setSearch, results, setResults }) => {
-  const handleClick = (e) => {
-    e.preventDefault(); // prevent page refresh
-    setSearch(e.target.search.value);
+export const SearchBar = ({ setSearchQuery }) => {
+  const handleSearchClick = (e) => {
+    e.preventDefault();
+    console.log(e.target.searchField.value);
+    setSearchQuery(e.target.searchField.value);
   };
 
   return (
-    <form onSubmit={handleClick}>
-      <input type="text" name="search" placeholder="Search" />
-      <button type="submit">SEARCH</button>
-      {`${results[0]} ${results[1]}`}
+    <form onSubmit={handleSearchClick}>
+      <input type="text" name="searchField" />
+      <button type="submit">Search</button>
     </form>
   );
 };
