@@ -9,14 +9,22 @@ function App() {
   const [selectedResult, setSelectedResult] = useState({ lat: 50, lon: 1 });
 
   useEffect(() => {
-    fetch(
-      `https://nominatim.openstreetmap.org/?q=${searchQuery}&format=json&limit=3`
-    )
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchSearchResults = async () => {
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/?q=${searchQuery}&format=json&limit=3`
+        );
+        const data = await response.json();
         console.log(data);
         setSearchResults(data);
-      });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchSearchResults();
+    return () => {
+      // this gets called when the component unmounts
+    };
   }, [searchQuery]);
 
   const handleResultClick = (e) => {
