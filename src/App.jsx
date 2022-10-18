@@ -27,21 +27,13 @@ function App() {
   };
 
   return (
-    <div>
+    <div className="main-container">
       <SearchBar setSearchQuery={setSearchQuery} />
 
       <ul>
         {searchResults.map((result) => (
           <div key={result.place_id}>
-            <li
-              onClick={handleResultClick}
-              style={{
-                color: 'blue',
-                cursor: 'pointer',
-                fontSize: '0.8rem',
-                paddingTop: '0.5rem',
-              }}
-            >
+            <li onClick={handleResultClick} className="search-result">
               {result.display_name}
             </li>
           </div>

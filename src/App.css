@@ -1,4 +1,22 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .leaflet-container {
-  widtth: 100vw;
+  width: 100vw;
   height: 60vh;
+}
+
+.search-bar {
+  padding-top: 1.6rem;
+}
+
+.search-result {
+  font-family: 'Fira-Sans', sans-serif;
+  color: blue;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding-top: 0.5rem;
 }

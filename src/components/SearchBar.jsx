@@ -6,7 +6,7 @@ export const SearchBar = ({ setSearchQuery }) => {
   };
 
   return (
-    <form onSubmit={handleSearchClick}>
+    <form onSubmit={handleSearchClick} className="search-bar">
       <input type="text" name="searchField" />
       <button type="submit">Search</button>
     </form>

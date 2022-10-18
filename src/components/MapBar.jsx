@@ -12,12 +12,17 @@ export const MapBar = ({ searchResults, selectedResult }) => {
     coords: [50.0, 1.0],
   };
 
+  // const mapLayerProvider0 =
+  //   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  const mapLayerProvider =
+    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+
   return (
     <div>
       <MapContainer center={[50.0, 1.0]} zoom={6} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url={mapLayerProvider}
         />
         {searchResults.length > 0 ? (
           <SetViewOnResult coords={[selectedResult.lat, selectedResult.lon]} />
